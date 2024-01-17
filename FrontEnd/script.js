@@ -1,6 +1,5 @@
-// Définition des URLs pour les endpoints de l'API
+// Définition du URL pour le endpoint de l'API
 const urlWorks = "http://localhost:5678/api/works";
-const urlCategories = "http://localhost:5678/api/categories";
 
 // Fonction asynchrone pour effectuer des requêtes fetch et récupérer des données
 async function fetchData(url) {
