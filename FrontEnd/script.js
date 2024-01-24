@@ -104,11 +104,9 @@ async function main() {
   try {
     // Récupération des données depuis l'API
     const data = await fetchData(urlWorks);
-    console.log("Data fetched:", data);
 
     // Sélection de l'élément HTML avec la classe "gallery"
     const gallery = document.querySelector(".gallery");
-    console.log("Gallery selected:", gallery);
 
     // Parcours des données et création d'éléments HTML pour chaque projet
     data.forEach((elements) => {

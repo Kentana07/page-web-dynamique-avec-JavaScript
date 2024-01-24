@@ -7,72 +7,73 @@ const loginUrl = "http://localhost:5678/api/users/login";
 
 // Fonction asynchrone pour gérer l'authentification
 async function logIn(data) {
-    try {
-        // Options de la requête POST
-        const loginOptions = {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: data,
-        };
+  try {
+    // Options de la requête POST
+    const loginOptions = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: data,
+    };
 
-        // Effectuer la requête POST avec fetch et attendre la réponse
-        const response = await fetch(loginUrl, loginOptions);
-        return await response.json(); // Parse la réponse en JSON
-    } catch (err) {
-        console.error("Erreur lors de la requête d'authentification :", err);
-        throw err; // Rejeter l'erreur pour être gérée dans le gestionnaire d'événements
-    }
+    // Effectuer la requête POST avec fetch et attendre la réponse
+    const response = await fetch(loginUrl, loginOptions);
+    return await response.json(); // Parse la réponse en JSON
+  } catch (err) {
+    console.error("Erreur lors de la requête d'authentification :", err);
+    throw err; // Rejeter l'erreur pour être gérée dans le gestionnaire d'événements
+  }
 }
-
 // Gestionnaire d'événements pour le clic sur le bouton d'envoi
 sendInput.addEventListener("click", async (event) => {
-    try {
-        event.preventDefault();
+  try {
+    event.preventDefault();
 
-        // Vérification de la validité des champs
-        const isValidEmail = mailInput.checkValidity();
-        const isValidPassword = passwordInput.checkValidity();
+    // Vérification de la validité des champs
+    const isValidEmail = mailInput.checkValidity();
+    const isValidPassword = passwordInput.checkValidity();
 
-        switch (true) {
-            case !isValidEmail && !isValidPassword:
-                errorDial.style.display = "block";
-                break;
-            case !isValidEmail:
-                errorDial.innerText = "Adresse e-mail invalide";
-                break;
-            case !isValidPassword:
-                errorDial.innerText = "Mot de passe invalide";
-                break;
-            default:
-                errorDial.style.display = "none";
-                break;
-        }
-
-        // Création d'un objet utilisateur au format JSON
-        const user = JSON.stringify({
-            email: mailInput.value,
-            password: passwordInput.value,
-        });
-
-        // Appel de la fonction logIn avec les données utilisateur
-        const response = await logIn(user);
-
-        // Vérification de la réponse du serveur
-        if (response.userId === 1) {
-            // Stockage du token dans le sessionStorage
-            sessionStorage.setItem("token", response.token);
-            // Affichage du token dans la console
-            console.log("Token de connexion :", response.token);
-            // Redirection vers la page index.html
-            window.location.href = "index.html";
-        } else {
-            errorDial.style.display = "block";
-        }
-    } catch (err) {
-        console.error(err);
+    switch (true) {
+      case !isValidEmail && !isValidPassword:
+        errorDial.style.display = "block";
+        break;
+      case !isValidEmail:
+        errorDial.innerText =
+          "Adresse e-mail invalide ou Mot de passe invalide";
+        break;
+      case !isValidPassword:
+        errorDial.innerText =
+          "Adresse e-mail invalide ou Mot de passe invalide";
+        break;
+      default:
+        errorDial.style.display = "none";
+        break;
     }
+
+    // Création d'un objet utilisateur au format JSON
+    const user = JSON.stringify({
+      email: mailInput.value,
+      password: passwordInput.value,
+    });
+    console.log(user)
+    // Appel de la fonction logIn avec les données utilisateur
+    const response = await logIn(user);
+
+    // Vérification de la réponse du serveur
+    if (response.userId === 1) {
+      // Stockage du token dans le sessionStorage
+      sessionStorage.setItem("token", response.token);
+      // Affichage du token dans la console
+      console.log("Token de connexion :", response.token);
+      // Redirection vers la page index.html
+      window.location.href = "index.html";
+    } else {
+      errorDial.style.display = "block";
+    }
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 // Logs de test
