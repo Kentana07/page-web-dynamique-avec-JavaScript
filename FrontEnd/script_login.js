@@ -1,4 +1,4 @@
-// Récupération des éléments du DOM
+// DOM
 const mailInput = document.getElementById("emailInput");
 const passwordInput = document.getElementById("passwordInput");
 const sendInput = document.getElementById("send-input");
@@ -17,15 +17,15 @@ async function logIn(data) {
       body: data,
     };
 
-    // Effectuer la requête POST avec fetch et attendre la réponse
+    // Effectuer la requête POST avec fetch , attendre la réponse
     const response = await fetch(loginUrl, loginOptions);
     return await response.json(); // Parse la réponse en JSON
   } catch (err) {
     console.error("Erreur lors de la requête d'authentification :", err);
-    throw err; // Rejeter l'erreur pour être gérée dans le gestionnaire d'événements
+    throw err; // gérée dans le gestionnaire d'événements
   }
 }
-// Gestionnaire d'événements pour le clic sur le bouton d'envoi
+// Gestionnaire d'événements pour le clic
 sendInput.addEventListener("click", async (event) => {
   try {
     event.preventDefault();
@@ -64,7 +64,7 @@ sendInput.addEventListener("click", async (event) => {
     if (response.userId === 1) {
       // Stockage du token dans le sessionStorage
       sessionStorage.setItem("token", response.token);
-      // Affichage du token dans la console
+      // Affichage du token 
       console.log("Token de connexion :", response.token);
       // Redirection vers la page index.html
       window.location.href = "index.html";
