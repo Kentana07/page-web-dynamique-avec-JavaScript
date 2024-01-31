@@ -160,7 +160,7 @@ function openModal(event) {
 
 function handleModalTab(event) {
   const focusableElements = activeModal.querySelectorAll(
-    'a, button, textarea, input, select'
+    "a, button, textarea, input, select"
   );
   const firstElement = focusableElements[0];
   const lastElement = focusableElements[focusableElements.length - 1];
