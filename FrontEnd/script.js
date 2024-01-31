@@ -152,6 +152,33 @@ function openModal(event) {
     modalElement
       .querySelector(".js-modal-stop")
       .addEventListener("click", stopPropagation);
+
+    // Ajoutez le gestionnaire d'événements pour la navigation à l'intérieur de la modale
+    modalElement.addEventListener("keydown", handleModalTab);
+  }
+}
+
+function handleModalTab(event) {
+  const focusableElements = activeModal.querySelectorAll(
+    'a, button, textarea, input, select'
+  );
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  if (event.key === "Tab") {
+    if (event.shiftKey) {
+      // Tabulation arrière
+      if (document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      }
+    } else {
+      // Tabulation normale
+      if (document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    }
   }
 }
 
@@ -404,4 +431,3 @@ const handleSubmit = async (event) => {
 };
 // Gestion de l'événement de clic sur le bouton de validation
 addButton.addEventListener("click", handleSubmit);
-
